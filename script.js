@@ -1,42 +1,25 @@
-/* =============================
-   SCRIPT.JS - Navigasi Interaktif
-   ============================= */
+// Aktifkan ikon Lucide
+lucide.createIcons();
 
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".menu-btn");
-  const sections = document.querySelectorAll("section");
-
-  // Efek klik menu
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      sections.forEach(sec => {
-        sec.classList.remove("active-section");
-        sec.classList.add("fade");
-      });
-
-      const target = document.getElementById(btn.dataset.target);
-      target.classList.add("active-section");
-      target.classList.remove("fade");
-
-      // Scroll ke atas dengan efek lembut
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
+// Scroll ke bagian
+const buttons = document.querySelectorAll('.menu-btn');
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).scrollIntoView({ behavior: 'smooth' });
   });
-
-  // Efek parallax ringan saat scroll
-  window.addEventListener("scroll", () => {
-    const scrolled = window.scrollY;
-    document.querySelectorAll(".fade, .active-section").forEach(el => {
-      el.style.transform = `translateY(${scrolled * 0.05}px)`;
-    });
-  });
-
-  // Aktifkan ikon lucide
-  lucide.createIcons();
 });
+
+// Efek animasi fade-in saat scroll
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2 };
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => appearOnScroll.observe(fader));
