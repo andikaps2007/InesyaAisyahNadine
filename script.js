@@ -1,20 +1,42 @@
-// Ambil semua tombol dan bagian halaman
-const menuButtons = document.querySelectorAll(".menu-btn");
-const sections = document.querySelectorAll("section");
+/* =============================
+   SCRIPT.JS - Navigasi Interaktif
+   ============================= */
 
-// Fungsi berpindah halaman
-menuButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    const target = button.getAttribute("data-target");
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".menu-btn");
+  const sections = document.querySelectorAll("section");
 
-    sections.forEach(sec => {
-      if (sec.id === target) {
-        sec.classList.remove("hidden-section");
-        sec.style.opacity = 1;
-      } else {
-        sec.classList.add("hidden-section");
-        sec.style.opacity = 0;
-      }
+  // Efek klik menu
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      sections.forEach(sec => {
+        sec.classList.remove("active-section");
+        sec.classList.add("fade");
+      });
+
+      const target = document.getElementById(btn.dataset.target);
+      target.classList.add("active-section");
+      target.classList.remove("fade");
+
+      // Scroll ke atas dengan efek lembut
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
   });
+
+  // Efek parallax ringan saat scroll
+  window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY;
+    document.querySelectorAll(".fade, .active-section").forEach(el => {
+      el.style.transform = `translateY(${scrolled * 0.05}px)`;
+    });
+  });
+
+  // Aktifkan ikon lucide
+  lucide.createIcons();
 });
