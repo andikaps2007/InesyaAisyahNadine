@@ -8,26 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Animasi fade-in dan smooth transition */
-    .fade {
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .active-section {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .menu-btn.active {
-      color: #60a5fa;
-      font-weight: 600;
-    }
-    /* Glow futuristik navbar */
+    html { scroll-behavior: smooth; }
     nav {
       backdrop-filter: blur(12px);
       background: rgba(30, 64, 175, 0.9);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
     }
+    .menu-btn.active { color: #60a5fa; font-weight: 600; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-gray-100 font-sans">
@@ -35,105 +22,133 @@
   <!-- Navbar -->
   <nav class="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center shadow-lg">
     <div class="flex items-center space-x-3">
-      <!-- Logo lokal -->
       <img src="logo-sekolah.png" alt="Logo Sekolah" class="w-11 h-11 rounded-full bg-white p-1 shadow-md">
       <h1 class="text-lg sm:text-xl font-bold tracking-wide">SMK PANCAKARYA 2</h1>
     </div>
 
-    <!-- Menu dengan ikon -->
     <ul class="flex space-x-6 text-sm sm:text-base items-center">
-      <li><button class="menu-btn flex items-center gap-2 hover:text-blue-300" data-target="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button></li>
+      <li><button class="menu-btn flex items-center gap-2 hover:text-blue-300 active" data-target="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button></li>
       <li><button class="menu-btn flex items-center gap-2 hover:text-blue-300" data-target="tentang"><i data-lucide="user"></i>Tentang</button></li>
       <li><button class="menu-btn flex items-center gap-2 hover:text-blue-300" data-target="proyek"><i data-lucide="code-2"></i>Proyek</button></li>
       <li><button class="menu-btn flex items-center gap-2 hover:text-blue-300" data-target="kontak"><i data-lucide="send"></i>Kontak</button></li>
     </ul>
   </nav>
 
-  <!-- Konten Halaman -->
-  <main class="pt-28 px-6 sm:px-10 max-w-5xl mx-auto space-y-16">
+  <!-- Konten -->
+  <main class="pt-28 px-6 sm:px-10 max-w-5xl mx-auto space-y-24">
 
     <!-- DASHBOARD -->
-    <section id="dashboard" class="fade active-section text-center">
+    <section id="dashboard" class="text-center">
       <h2 class="text-3xl font-bold text-blue-400 mb-2">Halo, Saya <span class="text-white">Inesya Aisyah Nadine</span> 👋</h2>
-      <p class="text-gray-300 text-lg">Siswa Kelas 10 Manajemen Perkantoran dan Layanan Bisnis</p>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
+        Saya adalah siswi kelas 10 jurusan <b>Manajemen Perkantoran dan Layanan Bisnis</b> di <b>SMK PANCAKARYA 2</b>. 
+        Saya memiliki semangat besar untuk terus berkembang dan mempelajari hal-hal baru, terutama yang berhubungan dengan teknologi, kreativitas, dan komunikasi. 
+        Bagi saya, dunia digital bukan hanya tentang kemajuan, tetapi juga tentang cara kita beradaptasi dan memberi manfaat bagi banyak orang.
+      </p>
+      <p class="text-gray-400 mt-3 max-w-3xl mx-auto">
+        Dalam kehidupan sekolah, saya berusaha menjadi pribadi yang disiplin, bertanggung jawab, dan terbuka terhadap hal-hal baru. 
+        Saya percaya bahwa setiap tantangan adalah peluang untuk belajar dan setiap pengalaman adalah langkah menuju masa depan yang lebih baik.
+      </p>
       <div class="mt-6 flex justify-center">
         <div class="h-1 w-24 bg-blue-500 rounded-full animate-pulse"></div>
       </div>
     </section>
 
     <!-- TENTANG SAYA -->
-    <section id="tentang" class="hidden-section fade">
+    <section id="tentang">
       <h3 class="text-2xl font-bold mb-6 text-blue-400 text-center">Tentang Saya</h3>
       <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-8 bg-white/10 p-6 rounded-2xl shadow-lg border border-white/10">
-        <img src="nadine.png" alt="Foto Nadine" class="w-40 h-40 object-cover rounded-full shadow-lg mb-6 md:mb-0 ring-2 ring-blue-400">
+        <img src="nadine.png" alt="Foto Nadine" class="w-44 h-44 object-cover rounded-full shadow-lg mb-6 md:mb-0 ring-2 ring-blue-400">
         <div class="text-gray-300 text-justify leading-relaxed">
           <p class="mb-3">
-            Saya adalah siswa yang tertarik dengan <span class="text-blue-400 font-medium">teknologi</span>, keelektroan, dan pengembangan website.
-            Saat ini saya aktif di sekolah <b>SMK PANCAKARYA 2</b>.
+            Perkenalkan, saya <b>Inesya Aisyah Nadine</b>, lahir pada <b>1 Agustus 2007</b>. 
+            Sejak kecil saya dikenal sebagai pribadi yang ingin tahu, mandiri, dan senang mencoba hal-hal baru. 
+            Dunia teknologi dan komunikasi adalah dua hal yang paling menarik bagi saya, karena keduanya memiliki kekuatan untuk menghubungkan orang, menyebarkan ide, dan menciptakan perubahan.
+          </p>
+          <p class="mb-3">
+            Di sekolah, saya aktif mengikuti kegiatan akademik maupun non-akademik. 
+            Saya senang bekerja sama dalam tim, berorganisasi, serta berpartisipasi dalam berbagai lomba yang menantang kemampuan berpikir kritis dan kreativitas. 
+            Melalui kegiatan itu, saya belajar bahwa kesuksesan tidak datang dari kerja keras semata, tetapi juga dari kemampuan beradaptasi dan berkolaborasi.
+          </p>
+          <p class="mb-3">
+            Saya memiliki minat dalam bidang <span class="text-blue-400">teknologi, keelektroan, desain digital, dan pengembangan website</span>. 
+            Di waktu luang, saya sering mempelajari bahasa pemrograman dasar, desain grafis, serta hal-hal baru yang berhubungan dengan dunia digital. 
+            Saya juga suka membaca artikel tentang sains dan teknologi untuk menambah wawasan saya.
           </p>
           <p>
-            Saya berpengalaman dalam bidang <span class="text-blue-300">kimia</span>, <span class="text-blue-300">biologi</span>, dan <span class="text-blue-300">matematika</span>.
-            Tujuan saya adalah menciptakan teknologi yang bermanfaat bagi masyarakat.
+            Harapan saya ke depan adalah menjadi seseorang yang dapat berkontribusi di bidang teknologi dan pendidikan. 
+            Saya ingin menciptakan sesuatu yang berguna bagi banyak orang — entah itu sebuah aplikasi, sistem, atau inovasi sederhana yang bisa mempermudah kehidupan masyarakat. 
+            Prinsip saya sederhana: belajar tidak ada batasnya, dan setiap hari adalah kesempatan baru untuk menjadi lebih baik dari kemarin.
           </p>
         </div>
       </div>
     </section>
 
     <!-- PROYEK -->
-    <section id="proyek" class="hidden-section fade">
-      <h3 class="text-2xl font-bold mb-6 text-blue-400 text-center">Proyek</h3>
+    <section id="proyek">
+      <h3 class="text-2xl font-bold mb-6 text-blue-400 text-center">Proyek dan Pengalaman</h3>
       <div class="grid sm:grid-cols-2 gap-6">
         <div class="bg-white/10 hover:bg-white/20 p-5 rounded-xl border border-white/10 transition transform hover:-translate-y-1 hover:shadow-lg">
           <i data-lucide="globe" class="text-blue-400 mb-2"></i>
           <h4 class="font-semibold mb-2">Website SMK PANCAKARYA 2</h4>
-          <p class="text-gray-300 text-sm">Proyek pengembangan web profil sekolah modern berbasis Tailwind.</p>
+          <p class="text-gray-300 text-sm">
+            Proyek ini saya kerjakan untuk memperkenalkan profil sekolah secara digital. 
+            Saya mempelajari cara kerja struktur HTML, CSS, dan JavaScript untuk membuat tampilan yang menarik serta mudah digunakan. 
+            Melalui proyek ini, saya belajar bagaimana desain dapat berperan dalam menyampaikan identitas dan semangat sekolah.
+          </p>
         </div>
+
         <div class="bg-white/10 hover:bg-white/20 p-5 rounded-xl border border-white/10 transition transform hover:-translate-y-1 hover:shadow-lg">
           <i data-lucide="flask-round" class="text-blue-400 mb-2"></i>
           <h4 class="font-semibold mb-2">Analisis Kimia dan Biologi</h4>
-          <p class="text-gray-300 text-sm">Eksperimen laboratorium untuk memahami reaksi dan struktur zat.</p>
+          <p class="text-gray-300 text-sm">
+            Dalam pelajaran praktikum, saya terlibat dalam analisis reaksi kimia dan pengamatan biologi dasar. 
+            Dari kegiatan ini saya belajar bagaimana teori dapat diterapkan secara nyata, serta pentingnya ketelitian dalam setiap langkah eksperimen.
+          </p>
         </div>
+
         <div class="bg-white/10 hover:bg-white/20 p-5 rounded-xl border border-white/10 transition transform hover:-translate-y-1 hover:shadow-lg sm:col-span-2">
           <i data-lucide="briefcase" class="text-blue-400 mb-2"></i>
           <h4 class="font-semibold mb-2">Manajemen Perkantoran</h4>
-          <p class="text-gray-300 text-sm">Optimalisasi efisiensi administrasi bisnis menggunakan teknologi digital.</p>
+          <p class="text-gray-300 text-sm">
+            Dalam jurusan saya, saya mempelajari cara mengelola kegiatan administrasi, surat menyurat, hingga manajemen arsip digital. 
+            Semua ini mengajarkan saya disiplin, ketepatan waktu, dan kemampuan komunikasi yang baik. 
+            Saya percaya bahwa kemampuan ini akan sangat berguna ketika saya terjun ke dunia kerja nanti.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- KONTAK -->
-    <section id="kontak" class="hidden-section fade text-center">
+    <section id="kontak" class="text-center">
       <h3 class="text-2xl font-bold mb-6 text-blue-400">Hubungi Saya</h3>
+      <p class="max-w-2xl mx-auto text-gray-300 leading-relaxed mb-4">
+        Saya selalu terbuka untuk berdiskusi, belajar bersama, atau berkolaborasi dalam proyek menarik. 
+        Jangan ragu untuk menghubungi saya melalui media sosial di bawah ini. 
+        Mari bertukar ide dan membangun sesuatu yang bermanfaat bagi banyak orang! 💡
+      </p>
       <div class="space-y-3">
-        <p>📸 <a href="https://www.instagram.com/neyaisyp" target="_blank" class="text-blue-300 hover:underline">@neyaisyp</a></p>
-        <p>📸 <a href="https://www.instagram.com/2ndbyyaa" target="_blank" class="text-blue-300 hover:underline">@2ndbyyaa</a></p>
+        <p>Instagram 1: <a href="https://www.instagram.com/neyaisyp" target="_blank" class="text-blue-300 hover:underline">@neyaisyp</a></p>
+        <p>Instagram 2: <a href="https://www.instagram.com/2ndbyyaa" target="_blank" class="text-blue-300 hover:underline">@2ndbyyaa</a></p>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
   <footer class="text-center text-gray-400 p-6 mt-12 border-t border-white/10">
     © 2025 <span class="text-blue-400">Inesya Aisyah Nadine</span>. All rights reserved.
   </footer>
 
-  <script src="script.js"></script>
   <script>
     lucide.createIcons();
 
-    // Script navigasi antar section
+    // Scroll halus ke bagian yang diklik
     const buttons = document.querySelectorAll('.menu-btn');
-    const sections = document.querySelectorAll('section');
-
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        sections.forEach(sec => sec.classList.remove('active-section'));
-        const target = document.getElementById(btn.dataset.target);
-        target.classList.add('active-section');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById(btn.dataset.target).scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
