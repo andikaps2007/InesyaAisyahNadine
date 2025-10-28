@@ -1,92 +1,114 @@
-/* =============================
-   STYLE.CSS - Web Futuristik
-   ============================= */
-
-/* Efek scroll smooth untuk seluruh halaman */
-html {
+/* Font futuristik */
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle at 30% 20%, #0a0f24, #010312 70%);
+  color: #e5e7eb;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
-/* Hilangkan highlight biru saat klik di mobile */
-button, a {
-  -webkit-tap-highlight-color: transparent;
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  backdrop-filter: blur(12px);
+  background: rgba(15, 25, 60, 0.8);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+  z-index: 50;
 }
 
-/* Animasi transisi halaman */
-.hidden-section {
-  display: none;
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+.logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
 }
 
-.active-section {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+.navbar h1 {
+  font-weight: 700;
+  color: #22d3ee;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #22d3ee;
 }
 
-/* Tombol menu aktif */
-.menu-btn.active {
-  color: #60a5fa;
-  font-weight: 600;
-  position: relative;
+/* Menu */
+.menu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-.menu-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #60a5fa, #3b82f6, #1d4ed8);
-  border-radius: 2px;
-  animation: glow 2s infinite linear;
+.menu-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Animasi garis bawah glow */
+.menu-btn.active, .menu-btn:hover {
+  color: #22d3ee;
+  text-shadow: 0 0 8px #22d3ee;
+}
+
+/* Section umum */
+main {
+  padding-top: 110px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section {
+  margin: 80px 20px;
+  text-align: center;
+}
+
+.section h2, .section h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #22d3ee;
+  text-shadow: 0 0 12px #22d3ee;
+  margin-bottom: 15px;
+}
+
+.section span {
+  color: #fff;
+}
+
+/* Divider glow */
+.divider {
+  width: 100px;
+  height: 4px;
+  margin: 20px auto;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #22d3ee, #3b82f6, #22d3ee);
+  animation: glow 2s infinite alternate;
+}
 @keyframes glow {
-  0% { box-shadow: 0 0 4px #60a5fa; }
-  50% { box-shadow: 0 0 12px #60a5fa; }
-  100% { box-shadow: 0 0 4px #60a5fa; }
+  from { opacity: 0.5; transform: scaleX(0.8); }
+  to { opacity: 1; transform: scaleX(1.1); }
 }
 
-/* Hover tombol */
-.menu-btn:hover {
-  color: #93c5fd;
-  transform: scale(1.05);
-  transition: 0.2s;
-}
-
-/* Animasi foto */
-img:hover {
-  transform: scale(1.03);
-  transition: 0.3s ease-in-out;
-}
-
-/* Kartu proyek */
-section#proyek .card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-section#proyek .card:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-6px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-}
-
-/* Footer */
-footer {
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  background: linear-gradient(to right, rgba(30, 64, 175, 0.4), rgba(17, 24, 39, 0.7));
-  backdrop-filter: blur(8px);
-}
+/* Tentang Saya */
+.about-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  disp
