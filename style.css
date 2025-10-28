@@ -90,12 +90,3 @@ footer {
   background: linear-gradient(to right, rgba(30, 64, 175, 0.4), rgba(17, 24, 39, 0.7));
   backdrop-filter: blur(8px);
 }
-
-/* Biar tinggi foto menyesuaikan teks pada layar besar */
-@media (min-width: 768px) {
-  #tentang img {
-    height: auto;
-    max-height: 100%;
-    align-self: flex-start;
-  }
-}
