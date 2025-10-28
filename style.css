@@ -1,0 +1,7 @@
+.hidden-section {
+  display: none;
+}
+
+.fade {
+  transition: opacity 0.3s ease;
+}
