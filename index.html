@@ -3,124 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Vertical Swipe</title>
+    <title>Double Tap Gallery</title>
     <style>
-        /* Menghilangkan margin bawaan dan membuat layar penuh */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
-            background-color: #121212; /* Warna latar gelap agar gambar lebih stand out */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Mencegah scroll manual */
+            background-color: #000;
+            font-family: sans-serif;
         }
 
-        /* Container utama: Mengaktifkan Scroll Snapping vertikal */
-        .snap-container {
+        /* Container utama untuk slide */
+        #gallery-container {
             height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); /* Efek transisi halus */
         }
 
-        /* Setiap section gambar */
         .slide {
             height: 100vh;
             width: 100%;
-            scroll-snap-align: start;
+            flex-shrink: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        /* Mengatur gambar agar proporsional dan tidak terpotong */
         img {
-            max-width: 95%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            user-select: none;
-            -webkit-user-drag: none;
+            pointer-events: none; /* Agar klik terdeteksi oleh slide, bukan gambar */
         }
 
-        /* Overlay instruksi */
-        .hint {
-            position: absolute;
-            bottom: 40px;
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            width: 100%;
-            pointer-events: none;
-            animation: moveUp 2s infinite;
-        }
-
-        @keyframes moveUp {
-            0%, 100% { transform: translateY(0); opacity: 0.5; }
-            50% { transform: translateY(-15px); opacity: 1; }
-        }
-
-        /* Navigasi simpel di pojok kanan (opsional untuk desktop) */
-        .indicator {
+        /* Instruksi melayang */
+        #instruction {
             position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            color: white;
             z-index: 10;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+            opacity: 0.8;
+            pointer-events: none;
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
+        /* Notifikasi visual saat double tap (opsional) */
+        .tap-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: none;
         }
     </style>
 </head>
-<body>
+<body onclick="handleTap()">
 
-<div class="snap-container">
-    <section class="slide">
-        <img src="1.png" alt="Gambar 1">
-        <div class="hint">
-            <p>Swipe ke atas ☝️</p>
-        </div>
-    </section>
+    <div id="gallery-container">
+        <div class="slide"><img src="1.png" alt="1"></div>
+        <div class="slide"><img src="2.png" alt="2"></div>
+        <div class="slide"><img src="3.png" alt="3"></div>
+        <div class="slide"><img src="4.png" alt="4"></div>
+        <div class="slide"><img src="5.png" alt="5"></div>
+        <div class="slide"><img src="6.png" alt="6"></div>
+    </div>
 
-    <section class="slide">
-        <img src="2.png" alt="Gambar 2">
-    </section>
+    <div id="instruction">Ketuk 2 kali untuk lanjut</div>
+    <div id="tap-msg" class="tap-effect">Double Tap!</div>
 
-    <section class="slide">
-        <img src="3.png" alt="Gambar 3">
-    </section>
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        let lastTap = 0;
+        const container = document.getElementById('gallery-container');
+        const instruction = document.getElementById('instruction');
 
-    <section class="slide">
-        <img src="4.png" alt="Gambar 4">
-    </section>
+        function handleTap() {
+            const now = new Date().getTime();
+            const timesince = now - lastTap;
 
-    <section class="slide">
-        <img src="5.png" alt="Gambar 5">
-    </section>
+            // Deteksi Double Tap (rentang waktu kurang dari 300ms)
+            if ((timesince < 300) && (timesince > 0)) {
+                nextSlide();
+            }
+            lastTap = now;
+        }
 
-    <section class="slide">
-        <img src="6.png" alt="Gambar 6">
-        <div class="hint" style="animation: none; opacity: 0.6;">
-            <p>Halaman Terakhir</p>
-        </div>
-    </section>
-</div>
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                // Geser container ke atas berdasarkan index slide
+                container.style.transform = `translateY(-${currentSlide * 100}vh)`;
+                
+                // Update instruksi di slide terakhir
+                if (currentSlide === totalSlides - 1) {
+                    instruction.innerHTML = "Selesai ✨";
+                }
+            } else {
+                // Jika sudah di akhir, kembali ke awal (opsional)
+                currentSlide = 0;
+                container.style.transform = `translateY(0)`;
+                instruction.innerHTML = "Ketuk 2 kali untuk lanjut";
+            }
+        }
 
-<div class="indicator">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-</div>
-
+        // Mencegah zoom default saat double tap di mobile browser
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+    </script>
 </body>
 </html>
