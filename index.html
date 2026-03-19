@@ -1,101 +1,126 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMK PANCAKARYA 2 - Inesya Aisyah Nadine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Vertical Swipe</title>
+    <style>
+        /* Menghilangkan margin bawaan dan membuat layar penuh */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #121212; /* Warna latar gelap agar gambar lebih stand out */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  <!-- Tailwind & Icon -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+        /* Container utama: Mengaktifkan Scroll Snapping vertikal */
+        .snap-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
 
-  <!-- Font Futuristik -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+        /* Setiap section gambar */
+        .slide {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-  <!-- File CSS -->
-  <link rel="stylesheet" href="style.css" />
+        /* Mengatur gambar agar proporsional dan tidak terpotong */
+        img {
+            max-width: 95%;
+            max-height: 90%;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Overlay instruksi */
+        .hint {
+            position: absolute;
+            bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+            animation: moveUp 2s infinite;
+        }
+
+        @keyframes moveUp {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(-15px); opacity: 1; }
+        }
+
+        /* Navigasi simpel di pojok kanan (opsional untuk desktop) */
+        .indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+    </style>
 </head>
+<body>
 
-<body class="text-gray-100">
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo-area">
-      <img src="logo-sekolah.png" alt="Logo Sekolah" class="logo" />
-      <h1>SMK PANCAKARYA 2</h1>
-    </div>
-
-    <ul class="menu">
-      <li><button class="menu-btn active" data-target="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button></li>
-      <li><button class="menu-btn" data-target="tentang"><i data-lucide="user"></i>Tentang</button></li>
-      <li><button class="menu-btn" data-target="proyek"><i data-lucide="code-2"></i>Proyek</button></li>
-      <li><button class="menu-btn" data-target="kontak"><i data-lucide="send"></i>Kontak</button></li>
-    </ul>
-  </nav>
-
-  <!-- Konten -->
-  <main>
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="section fade-in">
-      <h2>Halo, Saya <span>Inesya Aisyah Nadine</span> 👋</h2>
-      <p>
-        Saya siswi kelas 10 jurusan <b>Manajemen Perkantoran dan Layanan Bisnis</b> di <b>SMK PANCAKARYA 2</b>.
-        Saya memiliki semangat besar untuk terus berkembang dan mempelajari hal-hal baru, terutama di bidang teknologi, kreativitas, dan komunikasi.
-      </p>
-      <p>
-        Dunia digital bukan hanya tentang kemajuan, tetapi juga tentang cara kita beradaptasi dan memberi manfaat bagi banyak orang.
-      </p>
-      <div class="divider"></div>
+<div class="snap-container">
+    <section class="slide">
+        <img src="1.png" alt="Gambar 1">
+        <div class="hint">
+            <p>Swipe ke atas ☝️</p>
+        </div>
     </section>
 
-    <!-- TENTANG -->
-    <section id="tentang" class="section fade-in">
-      <h3>Tentang Saya</h3>
-      <div class="about-box">
-        <img src="nadine.png" alt="Foto Nadine" class="profile" />
-        <div>
-          <p>Saya <b>Inesya Aisyah Nadine</b>, lahir pada <b>1 Agustus 2007</b>. Saya dikenal sebagai pribadi yang ingin tahu, mandiri, dan senang mencoba hal-hal baru.</p>
-          <p>Saya aktif dalam kegiatan sekolah dan memiliki minat dalam <span class="highlight">teknologi, desain digital, dan pengembangan website</span>.</p>
-          <p>Harapan saya ke depan adalah menjadi seseorang yang dapat berkontribusi di bidang teknologi dan pendidikan.</p>
-        </div>
-      </div>
+    <section class="slide">
+        <img src="2.png" alt="Gambar 2">
     </section>
 
-    <!-- PROYEK -->
-    <section id="proyek" class="section fade-in">
-      <h3>Proyek dan Pengalaman</h3>
-      <div class="project-grid">
-        <div class="card">
-          <h4>Website Sekolah</h4>
-          <p>Saya membuat website profil sekolah dengan HTML, CSS, dan JavaScript agar tampil menarik dan interaktif.</p>
-        </div>
-        <div class="card">
-          <h4>Analisis Kimia dan Biologi</h4>
-          <p>Belajar menerapkan teori melalui eksperimen nyata yang melatih ketelitian dan observasi ilmiah.</p>
-        </div>
-        <div class="card wide">
-          <h4>Manajemen Perkantoran</h4>
-          <p>Belajar administrasi, komunikasi, dan manajemen arsip digital yang berguna untuk masa depan profesional.</p>
-        </div>
-      </div>
+    <section class="slide">
+        <img src="3.png" alt="Gambar 3">
     </section>
 
-    <!-- KONTAK -->
-    <section id="kontak" class="section fade-in">
-      <h3>Hubungi Saya</h3>
-      <p>
-        Saya terbuka untuk berdiskusi, belajar bersama, atau kolaborasi proyek menarik. Hubungi saya di:
-      </p>
-      <p> Instagram 1: <a href="https://www.instagram.com/neyaisyp" target="_blank">@neyaisyp</a></p>
-      <p> Instagram 2: <a href="https://www.instagram.com/2ndbyyaa" target="_blank">@2ndbyyaa</a></p>
+    <section class="slide">
+        <img src="4.png" alt="Gambar 4">
     </section>
-  </main>
 
-  <footer>
-    © 2025 <span>Inesya Aisyah Nadine</span>. All rights reserved.
-  </footer>
+    <section class="slide">
+        <img src="5.png" alt="Gambar 5">
+    </section>
 
-  <!-- JS -->
-  <script src="script.js"></script>
+    <section class="slide">
+        <img src="6.png" alt="Gambar 6">
+        <div class="hint" style="animation: none; opacity: 0.6;">
+            <p>Halaman Terakhir</p>
+        </div>
+    </section>
+</div>
+
+<div class="indicator">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
 </body>
 </html>
