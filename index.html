@@ -2,25 +2,25 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Double Tap Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Full Screen Double Tap Gallery</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* Mencegah scroll manual */
+            overflow: hidden;
             background-color: #000;
             font-family: sans-serif;
+            touch-action: manipulation; /* Membantu performa tap di mobile */
         }
 
-        /* Container utama untuk slide */
         #gallery-container {
             height: 100vh;
             width: 100%;
             display: flex;
             flex-direction: column;
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); /* Efek transisi halus */
+            transition: transform 0.5s ease-in-out;
         }
 
         .slide {
@@ -30,57 +30,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
         img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            pointer-events: none; /* Agar klik terdeteksi oleh slide, bukan gambar */
-        }
-
-        /* Instruksi melayang */
-        #instruction {
-            position: fixed;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            z-index: 10;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
-            opacity: 0.8;
             pointer-events: none;
         }
 
-        /* Notifikasi visual saat double tap (opsional) */
-        .tap-effect {
+        #instruction {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 10;
             font-size: 14px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: none;
+            pointer-events: none;
         }
     </style>
 </head>
-<body onclick="handleTap()">
+<body onclick="handleInteraction()">
 
     <div id="gallery-container">
-        <div class="slide"><img src="1.png" alt="1"></div>
-        <div class="slide"><img src="2.png" alt="2"></div>
-        <div class="slide"><img src="3.png" alt="3"></div>
-        <div class="slide"><img src="4.png" alt="4"></div>
-        <div class="slide"><img src="5.png" alt="5"></div>
-        <div class="slide"><img src="6.png" alt="6"></div>
+        <div class="slide"><img src="1.png"></div>
+        <div class="slide"><img src="2.png"></div>
+        <div class="slide"><img src="3.png"></div>
+        <div class="slide"><img src="4.png"></div>
+        <div class="slide"><img src="5.png"></div>
+        <div class="slide"><img src="6.png"></div>
     </div>
 
-    <div id="instruction">Ketuk 2 kali untuk lanjut</div>
-    <div id="tap-msg" class="tap-effect">Double Tap!</div>
+    <div id="instruction">Ketuk 1x untuk Full Screen, Ketuk 2x untuk Lanjut</div>
 
     <script>
         let currentSlide = 0;
@@ -89,36 +71,50 @@
         const container = document.getElementById('gallery-container');
         const instruction = document.getElementById('instruction');
 
-        function handleTap() {
+        function handleInteraction() {
             const now = new Date().getTime();
             const timesince = now - lastTap;
 
-            // Deteksi Double Tap (rentang waktu kurang dari 300ms)
+            // 1. Pemicu Full Screen pada interaksi pertama apa pun
+            enableFullScreen();
+
+            // 2. Deteksi Double Tap untuk ganti gambar
             if ((timesince < 300) && (timesince > 0)) {
                 nextSlide();
             }
             lastTap = now;
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                // Geser container ke atas berdasarkan index slide
-                container.style.transform = `translateY(-${currentSlide * 100}vh)`;
-                
-                // Update instruksi di slide terakhir
-                if (currentSlide === totalSlides - 1) {
-                    instruction.innerHTML = "Selesai ✨";
-                }
-            } else {
-                // Jika sudah di akhir, kembali ke awal (opsional)
-                currentSlide = 0;
-                container.style.transform = `translateY(0)`;
-                instruction.innerHTML = "Ketuk 2 kali untuk lanjut";
+        function enableFullScreen() {
+            const docElm = document.documentElement;
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            } else if (docElm.mozRequestFullScreen) { /* Firefox */
+                docElm.mozRequestFullScreen();
+            } else if (docElm.webkitRequestFullScreen) { /* Chrome, Safari, Opera */
+                docElm.webkitRequestFullScreen();
+            } else if (docElm.msRequestFullscreen) { /* IE/Edge */
+                docElm.msRequestFullscreen();
             }
         }
 
-        // Mencegah zoom default saat double tap di mobile browser
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                container.style.transform = `translateY(-${currentSlide * 100}vh)`;
+            } else {
+                // Reset ke awal jika sudah di gambar terakhir
+                currentSlide = 0;
+                container.style.transform = `translateY(0)`;
+            }
+            
+            // Update teks instruksi
+            if (currentSlide > 0) {
+                instruction.innerHTML = `Gambar ${currentSlide + 1} / ${totalSlides}`;
+            }
+        }
+
+        // Mencegah zoom default browser saat double tap
         document.addEventListener('touchstart', function(event) {
             if (event.touches.length > 1) {
                 event.preventDefault();
